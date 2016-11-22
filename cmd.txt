@@ -1,0 +1,2 @@
+#/bin/bash
+echo "hacked by bigtang" > ~/.gg
